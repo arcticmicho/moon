@@ -3,6 +3,13 @@ using System.Collections;
 
 public class WalkController : MonoBehaviour {
 	[HideInInspector]public float speed = 6.0F;
+	[HideInInspector]public enum facing {Right,Left}
+	[HideInInspector]public enum moving {Right, Left, Stand}
+	[HideInInspector]public bool isLeft;
+	[HideInInspector]public bool isRight;
+	[HideInInspector]public bool isJump;
+	public facing facingDir;
+	public moving movingDir;
 	public float jumpSpeed = 8.0F;
     public float gravity = 20.0F;
     private Vector3 moveDirection = Vector3.zero;
@@ -15,6 +22,8 @@ public class WalkController : MonoBehaviour {
 	
     void FixedUpdate() {
 		
+		isLeft = false;
+		isRight = false;
 		
         if (controller.isGrounded) {
 			
@@ -32,6 +41,16 @@ public class WalkController : MonoBehaviour {
 				moveDirection = transform.TransformDirection(moveDirection);
             	moveDirection.x *= speed;
 			}
+		}
+		
+		if(moveDirection.x > 0){
+			isRight=true;
+			facingDir = facing.Right;
+		}else{
+			if(moveDirection.x < 0){
+				isLeft = true;
+				facingDir = facing.Left;
+			}else{  }
 		}
 		
 		moveDirection.y -= gravity * Time.deltaTime;
