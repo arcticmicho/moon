@@ -13,7 +13,7 @@ public class WalkController : MonoBehaviour {
 		controller = GetComponent<CharacterController>();
 	}
 	
-    void Update() {
+    void FixedUpdate() {
 		
 		
         if (controller.isGrounded) {
